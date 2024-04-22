@@ -1,7 +1,9 @@
 package com.sky.service;
 
+import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
 import com.sky.entity.Employee;
+import io.swagger.annotations.ApiOperation;
 
 public interface EmployeeService {
 
@@ -12,4 +14,13 @@ public interface EmployeeService {
      */
     Employee login(EmployeeLoginDTO employeeLoginDTO);
 
+    /**
+     * @description: 新增员工
+     * @param: 员工DTO
+     * @return: null
+     * @author Moyu
+     * @date: 2024/4/21 23:08
+     */
+    @ApiOperation("新增员工")
+    void save(EmployeeDTO employeeDTO);
 }
