@@ -20,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.time.LocalDateTime;
 
@@ -92,7 +93,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         //插入
         employeeMapper.insert(employee);
     }
-
+/**
+ * @description: 员工分页查询
+ * @param:
+ * @return:
+ * @author Moyu
+ * @date: 2024/4/23 15:00
+ */
     @Override
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
         PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
@@ -111,5 +118,30 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .build();
         employeeMapper.update(employee);
     }
+
+    /**
+     * @description: 根据id查询员工
+     * @param:
+     * @return:
+     * @author Moyu
+     * @date: 2024/4/23 15:02
+     */
+    @Override
+    public Employee getById(long id) {
+        Employee employee=employeeMapper.getById(id);
+        employee.setPassword("****");
+        return employee;
+    }
+
+    @Override
+    public void updateEmployee( EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+        BeanUtils.copyProperties(employeeDTO,employee);
+        employee.setUpdateTime(LocalDateTime.now());
+        Long id = BaseContext.getCurrentId();
+        employee.setUpdateUser(id);
+        employeeMapper.update(employee);
+    }
+
 
 }

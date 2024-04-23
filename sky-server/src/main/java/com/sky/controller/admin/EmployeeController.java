@@ -98,6 +98,26 @@ public class EmployeeController {
         return Result.success();
     }
     /**
+     * @description: 根据id查询员工信息
+     * @param:
+     * @return:
+     * @author Moyu
+     * @date: 2024/4/23 14:50
+     */
+    @ApiOperation("根据id查询员工信息")
+    @GetMapping("/{id}")
+    public  Result<Employee> getById(@PathVariable long id){
+    Employee employee=employeeService.getById(id);
+    return Result.success(employee);
+    }
+
+    @ApiOperation("修改员工资料")
+    @PutMapping()
+    public Result updateEmployee(@RequestBody EmployeeDTO employeeDTO){
+        employeeService.updateEmployee(employeeDTO);
+        return Result.success();
+    }
+    /**
      * 退出
      *
      * @return
