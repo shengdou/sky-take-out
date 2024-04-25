@@ -15,4 +15,6 @@ import java.util.List;
 public interface DishFlavorMapper {
 
     void insetBat(List<DishFlavor> flavors);
+
+    void deleteByDish(List<Long> ids);
 }

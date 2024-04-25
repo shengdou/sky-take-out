@@ -1,13 +1,18 @@
 package com.sky.controller.dish;
 
 import com.sky.dto.DishDTO;
+import com.sky.dto.DishPageQueryDTO;
+import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author Moyu
@@ -25,9 +30,26 @@ public class DishController {
 
     @PostMapping
     @Transactional
+    @ApiOperation("新增菜品接口")
     public Result save(@RequestBody DishDTO dishDTO){
         log.info("新增菜品Controller:{}",dishDTO);
         dishService.save(dishDTO);
+        return Result.success();
+    }
+
+    @GetMapping("/page")
+    @ApiOperation("菜品分页查询接口")
+    public Result<PageResult> page( DishPageQueryDTO dishPageQueryDTO){
+        log.info("菜品分页查询{}",dishPageQueryDTO);
+        return Result.success(dishService.pageQuery(dishPageQueryDTO));
+    }
+
+    @DeleteMapping
+    @ApiOperation("菜品批量删除")
+    @Transactional
+    public Result delete(@RequestParam List<Long> ids){
+        log.info("菜品删除{}",ids);
+        dishService.delete(ids);
         return Result.success();
     }
 }

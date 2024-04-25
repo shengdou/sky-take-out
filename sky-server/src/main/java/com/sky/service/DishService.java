@@ -1,7 +1,12 @@
 package com.sky.service;
 
 import com.sky.dto.DishDTO;
+import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
+import com.sky.result.PageResult;
+import com.sky.result.Result;
+
+import java.util.List;
 
 /**
  * @author Moyu
@@ -12,4 +17,8 @@ import com.sky.entity.Dish;
 public interface DishService {
 
     public void save(DishDTO dishDTO);
+
+    PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO);
+
+    void delete(List<Long> ids);
 }
