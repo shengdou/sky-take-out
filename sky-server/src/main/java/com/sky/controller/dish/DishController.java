@@ -5,6 +5,7 @@ import com.sky.dto.DishPageQueryDTO;
 import com.sky.result.PageResult;
 import com.sky.result.Result;
 import com.sky.service.DishService;
+import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -44,12 +46,45 @@ public class DishController {
         return Result.success(dishService.pageQuery(dishPageQueryDTO));
     }
 
+    @GetMapping("/{id}")
+    @ApiOperation("根据id查询菜品")
+    public Result<DishVO> findById(@PathVariable Long id){
+        log.info("根据id查询菜品{}",id);
+        DishVO dishVO=dishService.findById(id);
+        return Result.success(dishVO);
+    }
+
     @DeleteMapping
     @ApiOperation("菜品批量删除")
     @Transactional
     public Result delete(@RequestParam List<Long> ids){
         log.info("菜品删除{}",ids);
         dishService.delete(ids);
+        return Result.success();
+    }
+
+    /**
+     * @description: 修改菜品
+     * @param:
+     * @return:
+     * @author Moyu
+     * @date: 2024/4/29 15:36
+     */
+    @PutMapping
+    @Transactional
+    @ApiOperation("修改菜品")
+    public Result update(@RequestBody DishDTO dishDTO){
+        log.info("修改菜品{}", dishDTO);
+        dishService.updateWithFlavor(dishDTO);
+        return Result.success();
+    }
+
+    @PostMapping("/status/{status}")
+    @ApiOperation("菜品起售停售")
+    @Transactional
+    public Result updateStatus( Long id, @PathVariable Integer status){
+        log.info("菜品起售停售 {},{}",id,status);
+        dishService.updateStatus(id,status);
         return Result.success();
     }
 }

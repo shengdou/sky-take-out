@@ -2,14 +2,12 @@ package com.sky.mapper;
 
 import com.github.pagehelper.Page;
 import com.sky.annotation.AutoFill;
+import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.enumeration.OperationType;
 import com.sky.vo.DishVO;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -31,11 +29,36 @@ public interface DishMapper {
             "#{updateTime},#{createUser},#{updateUser})")
     void insert(Dish dish);
 
+    /**
+     * @description: 菜品分页查询
+     * @param:
+     * @return:
+     * @author Moyu
+     * @date: 2024/4/29 11:53
+     */
     Page<DishVO> pageQuery(DishPageQueryDTO dishPageQueryDTO);
 
-
+/**
+ * @description: 根据菜品id与状态查找菜品数量
+ * @param:
+ * @return:
+ * @author Moyu
+ * @date: 2024/4/29 11:54
+ */
     Integer selectByIdAndStatus(List<Long> ids);
 
-
+/**
+ * @description: 根据id批量删除菜品
+ * @param:
+ * @return:
+ * @author Moyu
+ * @date: 2024/4/29 11:53
+ */
     void deleteBat(List<Long> ids);
+
+    @Select("select * from dish where dish.id=#{id}")
+    DishVO queryById(Long id);
+
+    @AutoFill(OperationType.UPDATE)
+    void update(Dish dish);
 }
