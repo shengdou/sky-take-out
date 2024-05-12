@@ -12,7 +12,7 @@ import com.sky.entity.Setmeal;
 import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMapper;
 import com.sky.mapper.DishMapper;
-import com.sky.mapper.SetmealDishlMapper;
+import com.sky.mapper.SetmealDishMapper;
 import com.sky.mapper.SetmealMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
@@ -42,7 +42,21 @@ public class DishServiceImpl implements DishService {
     @Autowired
     private SetmealMapper setmealMapper;
     @Autowired
-    private SetmealDishlMapper setmealDishlMapper;
+    private SetmealDishMapper setmealDishMapper;
+
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    public List<Dish> list(Long categoryId) {
+        Dish dish = Dish.builder()
+                .categoryId(categoryId)
+                .status(StatusConstant.ENABLE)
+                .build();
+        return dishMapper.list(dish);
+    }
+
 
     @Override
     public void save(DishDTO dishDTO) {
@@ -151,7 +165,7 @@ public class DishServiceImpl implements DishService {
                 .build();
         dishMapper.update(dish);
         if (status== StatusConstant.DISABLE){
-        List<Long> setmealIds=setmealDishlMapper.countByDishId(dish.getId());
+        List<Long> setmealIds= setmealDishMapper.countByDishId(dish.getId());
         if(setmealIds!=null&&setmealIds.size()>0) {
             Setmeal setmeal;
             for (Long setmealid : setmealIds) {

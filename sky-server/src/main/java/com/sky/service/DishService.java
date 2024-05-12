@@ -16,6 +16,12 @@ import java.util.List;
  * @date 2024/4/25 21:40
  */
 public interface DishService {
+    /**
+     * 根据分类id查询菜品
+     * @param categoryId
+     * @return
+     */
+    List<Dish> list(Long categoryId);
 
     public void save(DishDTO dishDTO);
 
