@@ -1,4 +1,4 @@
-package com.sky.controller.setmeal;
+package com.sky.controller.admin.setmeal;
 
 import com.sky.dto.SetmealDTO;
 import com.sky.dto.SetmealPageQueryDTO;

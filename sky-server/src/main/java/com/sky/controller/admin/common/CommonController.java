@@ -1,4 +1,4 @@
-package com.sky.controller.common;
+package com.sky.controller.admin.common;
 
 import com.sky.config.AliOSSConfig;
 import com.sky.result.Result;
