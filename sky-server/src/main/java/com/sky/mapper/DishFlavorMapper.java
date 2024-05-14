@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * @author Moyu
  * @version 1.0
- * @description: TODO
+ * @description: 口味相关mapper
  * @date 2024/4/25 22:05
  */
 @Mapper

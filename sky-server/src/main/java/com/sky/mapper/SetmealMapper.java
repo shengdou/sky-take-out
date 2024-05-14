@@ -7,6 +7,7 @@ import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Setmeal;
 import com.sky.entity.SetmealDish;
 import com.sky.enumeration.OperationType;
+import com.sky.vo.DishItemVO;
 import com.sky.vo.SetmealVO;
 import org.apache.ibatis.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,15 @@ public interface SetmealMapper {
     @Select("select count(id) from setmeal where category_id = #{categoryId}")
     Integer countByCategoryId(Long id);
 
+
+    /**
+     * 动态条件查询套餐
+     * @param setmeal
+     * @return
+     */
+    List<Setmeal> list(Setmeal setmeal);
+
+
 /**
  * @description: 根据dishId查找套餐数量
  * @param:
@@ -40,6 +50,17 @@ public interface SetmealMapper {
 
     @Select("select * from setmeal where id=#{id}")
     Setmeal selectById(Integer id);
+
+    /**
+     * 根据套餐id查询菜品选项
+     * @param setmealId
+     * @return
+     */
+    @Select("select sd.name, sd.copies, d.image, d.description " +
+            "from setmeal_dish sd left join dish d on sd.dish_id = d.id " +
+            "where sd.setmeal_id = #{setmealId}")
+    List<DishItemVO> getDishItemBySetmealId(Long setmealId);
+
 
     @AutoFill(OperationType.INSERT)
     @Options(useGeneratedKeys = true,keyProperty = "id")
@@ -59,4 +80,5 @@ public interface SetmealMapper {
 
     @Update("update setmeal set status=#{status} where id =#{id}")
     void updateStatus(Long id, Integer status);
+
 }
