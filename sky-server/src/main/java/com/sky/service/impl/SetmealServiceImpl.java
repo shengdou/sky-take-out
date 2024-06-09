@@ -86,7 +86,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @date: 2024/5/9 22:02
      */
     @Override
-    public SetmealVO seletctById(Integer id) {
+    public SetmealVO seletctById(Long id) {
         Setmeal setmeal=setmealMapper.selectById(id);//查询套餐表
         SetmealVO setmealVO=new SetmealVO();
         BeanUtils.copyProperties(setmeal,setmealVO);

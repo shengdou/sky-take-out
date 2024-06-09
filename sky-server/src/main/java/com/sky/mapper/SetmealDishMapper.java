@@ -19,7 +19,7 @@ public interface SetmealDishMapper {
     List<Long> countByDishId(Long id);
 
     @Select("select * from setmeal_dish where setmeal_id=#{id}")
-    List<SetmealDish> selectDishById(Integer id);
+    List<SetmealDish> selectDishById(Long id);
     /**
      * @description: 插入套餐-菜品表
      * @param:

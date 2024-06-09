@@ -49,7 +49,7 @@ public interface SetmealMapper {
 
 
     @Select("select * from setmeal where id=#{id}")
-    Setmeal selectById(Integer id);
+    Setmeal selectById(Long id);
 
     /**
      * 根据套餐id查询菜品选项

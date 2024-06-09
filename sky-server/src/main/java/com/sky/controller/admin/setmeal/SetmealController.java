@@ -47,7 +47,7 @@ public class SetmealController {
 
     @ApiOperation("根据id查询套餐")
     @GetMapping("/{id}")
-    public Result<SetmealVO> selectById(@PathVariable Integer id) {
+    public Result<SetmealVO> selectById(@PathVariable Long id) {
         SetmealVO setmealVO = setmealService.seletctById(id);
         return Result.success(setmealVO);
     }

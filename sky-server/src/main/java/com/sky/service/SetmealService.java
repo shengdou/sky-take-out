@@ -33,7 +33,7 @@ public interface SetmealService {
      */
     List<DishItemVO> getDishItemById(Long id);
 
-    public SetmealVO seletctById(Integer id);
+    public SetmealVO seletctById(Long id);
 
 
     PageResult pageQuery(SetmealPageQueryDTO setmealPageQueryDTO);
